@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :application, "fayeApp"
-set :repo_url, "git@example.com:me/my_repo.git"
+set :repo_url, "git@github.com:sunil123456/fayeApp.git"
 
 set :branch, :master
 set :deploy_to, '/home/deploy/fayeApp'
