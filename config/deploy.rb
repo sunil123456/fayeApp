@@ -7,7 +7,9 @@ set :repo_url, "git@github.com:sunil123456/fayeApp.git"
 set :branch, :master
 set :deploy_to, '/home/deploy/fayeApp'
 set :pty, true
-set :linked_files, %w{config/database.yml config/application.yml, 'config/private_pub.yml', 'config/puma.rb'}
+# set :linked_files, %w{config/database.yml config/application.yml}
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/application.yml', 'config/private_pub.yml', 'config/puma.rb')
+
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 set :keep_releases, 5
 set :rvm_type, :user
