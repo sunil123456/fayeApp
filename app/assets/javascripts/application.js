@@ -14,13 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require all_function
+//= require private_pub
 //= require_tree .
 
-$(function(){
-	// var faye = new Faye.Client('http://localhost:9292/faye')
-	var faye = new Faye.Client('http://ec2-18-222-195-118.us-east-2.compute.amazonaws.com/faye')
-
-	faye.subscribe("/messages/new", function(data){
-		eval(data);
-	})
-})

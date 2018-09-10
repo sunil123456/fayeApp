@@ -1,0 +1,4 @@
+development:
+ FAYURL: "http://localhost:9292/"
+production:
+ FAYURL: "http://ec2-18-222-195-118.us-east-2.compute.amazonaws.com/"
