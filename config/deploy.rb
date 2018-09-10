@@ -28,6 +28,41 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
 
+set :private_pub_pid, -> { "#{current_path}/tmp/pids/private_pub.pid" }
+set :private_pub_socket, -> { "#{current_path}/tmp/sockets/private_pub.sock" }
+set :private_pub_rackup, -> { "#{current_path}/private_pub.ru" }
+
+namespace :private_pub do
+  desc "Start private_pub server"
+  task :start do
+    on roles(:app) do
+      within release_path do
+        with rails_env: fetch(:stage) do
+          execute :bundle, "exec thin -e production -d -P #{fetch(:private_pub_pid)} -S #{fetch(:private_pub_socket)} -R #{fetch(:private_pub_rackup)} start"
+        end
+      end
+    end
+  end
+
+  desc "Stop private_pub server"
+  task :stop do
+    on roles(:app) do
+      within release_path do
+        execute "if [ -f #{fetch(:private_pub_pid)} ] && [ -e /proc/$(cat #{fetch(:private_pub_pid)}) ]; then kill -9 `cat #{fetch(:private_pub_pid)}`; fi"
+      end
+    end
+  end
+
+  desc "Restart private_pub server"
+  task :restart do
+    on roles(:app) do
+      invoke 'private_pub:stop'
+      invoke 'private_pub:start'
+    end
+  end
+end
+
+after 'deploy:restart', 'private_pub:restart'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
