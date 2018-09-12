@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+
+  resources :articles
+
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   resources :messages
-  root :to => 'messages#index'
+  root :to => 'articles#index'
+  resources :notifications do
+    collection do 
+      post :mark_as_read
+    end
+  end
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

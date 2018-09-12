@@ -12,8 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require all_function
 //= require private_pub
+//= require popper.min.js
+//= require bootstrap.min.js
 //= require_tree .
 
+
+
+$(document).ready(function() {
+	PrivatePub.subscribe("/articles/new", function(data, channel) {
+	  $("#chat").append("sdfsdf");
+	});
+})

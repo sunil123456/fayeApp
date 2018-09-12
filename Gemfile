@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 gem 'private_pub'
-# gem 'faye'
+gem 'faye'
 gem 'thin'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -19,6 +19,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'figaro'
 gem 'puma'
+gem 'devise'
 group :development do
   gem 'capistrano'
   gem 'capistrano3-puma'

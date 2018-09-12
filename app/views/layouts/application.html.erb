@@ -1,26 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>FayeApp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container-fluid">
+	<div class="row">
+		<nav class="navbar navbar-expand-sm bg-light">
+		  <!-- Links -->
+		  <ul class="navbar-nav">
+		    <% if user_signed_in? %>
+		    <li class="nav-item">
+		      <%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class=>'nav-link' %>
+		    </li>
+		    <li class="nav-item">
+		       <%= current_user.email %>
+		    </li>
+			<li class="nav-item btn-group" data-behavior="notifications" data-notifications='<%= render template: "notifications/index", formats: [:json] %>'><div id="chat11">ss</div>
+	          <a class="dropdown-toggle nav-link" type="button" data-behavior="notifications-link" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	            <i class="fas fa-bell"></i> <span data-behavior="unread-count"></span>
+	          </a>
+	          <div class="dropdown-menu" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
+	          </div>
+	        </li>
 
+
+		    <% else %>
+		    <li class="nav-item">
+		        <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path, :class=>'nav-link' %>
+		    </li>
+		    <% end %>
+		  </ul>
+		  </nav>
+  </div>
+  </div>
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
 <%= yield %>
 
 </body>
 </html>
 
-<script type="text/javascript">
-// 	$(function(){
-// 	var faye = new Faye.Client("<%= ENV['FAYURL'] %>faye")
-// 	// var faye = new Faye.Client('http://ec2-18-222-195-118.us-east-2.compute.amazonaws.com/faye')
-
-// 	faye.subscribe("/messages/new", function(data){
-// 		eval(data);
-// 	})
-// })
-
+<script>
+    $(function () {
+  $('[data-tooltip="tooltip"]').tooltip()
+	});
 </script>
+
